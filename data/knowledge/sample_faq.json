@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Return Policy",
+    "content": "Items can be returned within 30 days of delivery in original condition. Refunds are processed within 5-7 business days after we receive the return.",
+    "source_type": "Policy"
+  },
+  {
+    "title": "Shipping Times",
+    "content": "Standard shipping takes 3-5 business days. Express shipping takes 1-2 business days. International orders may take 7-14 business days.",
+    "source_type": "Shipping"
+  },
+  {
+    "title": "Order Tracking",
+    "content": "Track your order using the tracking link in your shipping confirmation email, or log in to your account and view Order History.",
+    "source_type": "FAQ"
+  },
+  {
+    "title": "Payment Methods",
+    "content": "We accept Visa, Mastercard, American Express, PayPal, and Apple Pay. Payment is charged when your order ships.",
+    "source_type": "FAQ"
+  },
+  {
+    "title": "Laptop RAM Spec - Model X500",
+    "content": "The X500 laptop supports up to 64GB DDR5 RAM across two SO-DIMM slots (32GB per slot maximum).",
+    "source_type": "Catalog"
+  },
+  {
+    "title": "Refund Processing",
+    "content": "Refunds are issued to the original payment method. Credit card refunds appear within 5-10 business days depending on your bank.",
+    "source_type": "Policy"
+  },
+  {
+    "title": "Damaged Items",
+    "content": "If your item arrives damaged, contact support within 48 hours with photos. We will arrange a free replacement or full refund.",
+    "source_type": "Policy"
+  },
+  {
+    "title": "Technical Support Hours",
+    "content": "Live chat and phone support are available Monday-Friday 9am-6pm EST. Email support responds within 24 hours.",
+    "source_type": "FAQ"
+  }
+]

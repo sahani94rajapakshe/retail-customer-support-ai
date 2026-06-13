@@ -1,5 +1,6 @@
 # Data and generated outputs (too large for git)
-data/
+data/*
+!data/knowledge/
 outputs/
 *.csv
 

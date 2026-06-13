@@ -1,3 +1,8 @@
 pandas
 transformers
 torch
+datasets
+scikit-learn
+accelerate
+sentence-transformers
+evaluate
