@@ -1,0 +1,15 @@
+# Data and generated outputs (too large for git)
+data/
+outputs/
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# ML model cache
+.cache/
+models/
