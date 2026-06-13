@@ -1,9 +1,13 @@
 # AI-Powered Omnichannel Customer Support & Analytics Platform
 
+![Status](https://img.shields.io/badge/status-in%20development-yellow)
+![Phase](https://img.shields.io/badge/phase-2%20in%20progress-blue)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
 A production-grade AI system for automating retail customer support across **Email, Live Chat, WhatsApp, and Social Media** while providing business intelligence and customer insights.
 
-> **Full project plan:** [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md)
-
+> **Status:** In development — Phase 2 (model training) in progress. FastAPI and .NET backend not yet deployed.  
+> **Full project plan:** [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) · **Live tracker:** [docs/PROGRESS.md](docs/PROGRESS.md)
 ## Vision
 
 Automate **60–80%** of repetitive support tickets, assist agents with AI copilot features, and provide management analytics — reducing response times from minutes to seconds.
