@@ -471,13 +471,15 @@ KnowledgeDocument
 
 ---
 
-### Phase 3 — AI Microservice
+### Phase 3 — AI Microservice 🔄
 
 | Task | Status |
 |------|--------|
-| FastAPI service (`/classify`, `/sentiment`, `/generate`, `/rag`) | Pending |
-| Model loading and inference optimization | Pending |
-| Docker containerization | Pending |
+| FastAPI service (`/classify`, `/sentiment`, `/generate`, `/rag`) | Done |
+| Model loading and inference optimization | Done (fine-tuned + fallback) |
+| Docker containerization | Done |
+
+> See `services/ai-service/` and [PROGRESS.md](PROGRESS.md).
 
 **Deliverable:** Deployable Python AI service with OpenAPI docs.
 

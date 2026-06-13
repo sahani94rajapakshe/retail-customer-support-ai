@@ -5,8 +5,8 @@
 | Field | Value |
 |-------|-------|
 | **Last updated** | 2025-06-13 |
-| **Current phase** | Phase 2 — Model Training |
-| **Overall progress** | ~30% |
+| **Current phase** | Phase 3 — AI Microservice |
+| **Overall progress** | ~40% |
 
 > Master plan: [PROJECT_PLAN.md](PROJECT_PLAN.md)
 
@@ -18,7 +18,7 @@
 |-------|------|--------|----------|
 | 1 | Data Foundation | **Complete** | 100% |
 | 2 | Model Training | **In progress** | 40% |
-| 3 | AI Microservice (FastAPI) | Not started | 0% |
+| 3 | AI Microservice (FastAPI) | **In progress** | 80% |
 | 4 | Backend Platform (.NET) | Not started | 0% |
 | 5 | Omnichannel Gateway | Not started | 0% |
 | 6 | Agent Copilot & Dashboard | Not started | 0% |
@@ -52,32 +52,33 @@
 
 **Phase 2 deliverable:** Fine-tuned models + evaluation report (F1, accuracy, BLEU/ROUGE).
 
-### Run Phase 2 pipeline
-
-```bash
-# From project root (after Phase 1 scripts)
-python scripts/stage3B_prepare_dataset.py
-python scripts/stage3C_extract_response_pairs.py --max-rows 5000
-
-python scripts/stage4_finetune_intent.py --epochs 3
-python scripts/stage5_finetune_sentiment.py --epochs 3
-python scripts/stage6_evaluate_models.py
-
-python scripts/stage7_finetune_t5.py --epochs 3 --max-samples 2000
-python scripts/stage8_build_rag_index.py
-```
-
-Use `--max-rows` / `--max-samples` for faster dev runs; omit for full training.
-
 ---
 
-## Phase 3 — AI Microservice ⬜
+## Phase 3 — AI Microservice 🔄
 
-| Task | Status |
-|------|--------|
-| FastAPI service (`/classify`, `/sentiment`, `/generate`, `/rag`) | Not started |
-| Model loading + inference optimization | Not started |
-| Docker containerization | Not started |
+| Task | Location | Status | Notes |
+|------|----------|--------|-------|
+| FastAPI service | `services/ai-service/app/main.py` | **Done** | OpenAPI at `/docs` |
+| `POST /classify/intent` | main.py | Done | Fine-tuned or zero-shot fallback |
+| `POST /classify/sentiment` | main.py | Done | Fine-tuned or pretrained fallback |
+| `POST /analyze` | main.py | Done | Intent + sentiment + escalation |
+| `POST /generate/response` | main.py | Done | T5 or template fallback |
+| `POST /rag/search` | main.py | Done | Vector search over knowledge base |
+| `POST /rag/answer` | main.py | Done | Grounded answer from top docs |
+| `GET /health` | main.py | Done | Model load status |
+| Docker containerization | `Dockerfile`, `docker-compose.yml` | Done | `docker compose up ai-service` |
+
+### Run the API
+
+```bash
+cd services/ai-service
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+API docs: http://localhost:8000/docs
+
+**Phase 3 deliverable:** Deployable Python AI service with OpenAPI docs.
 
 ---
 
@@ -137,17 +138,13 @@ Use `--max-rows` / `--max-samples` for faster dev runs; omit for full training.
 | Response BLEU | — | — | > 0.30 |
 | RAG index | 8 docs indexed | Done | Expand knowledge base |
 
-> Baseline metrics from `stage6_evaluate_models.py` on 100-row sample. Re-run labeling at scale, fine-tune, then re-evaluate.
-
 ---
 
 ## What's next
 
-1. **Re-label at scale:** `python scripts/stage3A_auto_label.py --max-rows 5000` (or `--full`)
-2. **Re-prepare splits:** `python scripts/stage3B_prepare_dataset.py`
-3. **Fine-tune models:** run `stage4` and `stage5` (GPU recommended)
-4. **Re-evaluate:** `python scripts/stage6_evaluate_models.py` and update metrics above
-5. **Start Phase 3** — FastAPI microservice wrapping fine-tuned models
+1. **Run fine-tuning:** `stage4` + `stage5` (GPU recommended) — API auto-loads fine-tuned models when available
+2. **Test API:** `uvicorn app.main:app --reload` → http://localhost:8000/docs
+3. **Start Phase 4** — ASP.NET Core backend calling this AI service
 
 ---
 
@@ -155,6 +152,7 @@ Use `--max-rows` / `--max-samples` for faster dev runs; omit for full training.
 
 | Date | Update |
 |------|--------|
+| 2025-06-13 | Phase 3: FastAPI microservice with intent, sentiment, RAG, response, escalation endpoints + Docker |
 | 2025-06-13 | RAG index built; baseline evaluation run; dataset splits created (100 rows) |
 | 2025-06-13 | Phase 2 started: config, fine-tuning, eval, RAG scripts added |
 | 2025-06-13 | Phase 1 complete; auto-labeling expanded to 8 intent classes |

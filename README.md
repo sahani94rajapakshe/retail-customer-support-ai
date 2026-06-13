@@ -1,12 +1,12 @@
 # AI-Powered Omnichannel Customer Support & Analytics Platform
 
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
-![Phase](https://img.shields.io/badge/phase-2%20in%20progress-blue)
+![Phase](https://img.shields.io/badge/phase-3%20in%20progress-blue)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 A production-grade AI system for automating retail customer support across **Email, Live Chat, WhatsApp, and Social Media** while providing business intelligence and customer insights.
 
-> **Status:** In development — Phase 2 (model training) in progress. FastAPI and .NET backend not yet deployed.  
+> **Status:** In development — Phase 3 (FastAPI AI microservice) in progress. .NET backend not yet deployed.  
 > **Full project plan:** [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md) · **Live tracker:** [docs/PROGRESS.md](docs/PROGRESS.md)
 ## Vision
 
@@ -20,7 +20,7 @@ Automate **60–80%** of repetitive support tickets, assist agents with AI copil
 |-------|-------------|--------|
 | 1 | Data cleaning & weak-supervision labeling | **Complete** |
 | 2 | Fine-tune DistilBERT, RoBERTa, T5 + RAG | **In progress** |
-| 3 | FastAPI AI microservice | Planned |
+| 3 | FastAPI AI microservice | **In progress** |
 | 4 | ASP.NET Core backend (CQRS, RabbitMQ, PostgreSQL) | Planned |
 | 5 | Omnichannel gateway (Email, Chat, WhatsApp, Social) | Planned |
 | 6 | Agent copilot & analytics dashboard | Planned |
@@ -39,6 +39,9 @@ Automate **60–80%** of repetitive support tickets, assist agents with AI copil
 6. Model evaluation report
 7. RAG knowledge index (Sentence Transformers)
 
+**Phase 3** (FastAPI AI service — run locally)
+8. REST API for intent, sentiment, RAG, response generation, and escalation
+
 ## Project structure
 
 ```
@@ -48,6 +51,13 @@ RetailSupport.AI/
 ├── docs/
 │   ├── PROJECT_PLAN.md      # Full architecture & module plan
 │   └── PROGRESS.md          # Living progress tracker
+├── services/
+│   └── ai-service/          # FastAPI microservice (Phase 3)
+│       ├── app/
+│       │   ├── main.py
+│       │   └── services/
+│       ├── Dockerfile
+│       └── requirements.txt
 ├── outputs/                 # Labeled data, splits, reports (gitignored)
 ├── models/                  # Fine-tuned checkpoints (gitignored)
 ├── scripts/
@@ -106,6 +116,26 @@ python scripts/stage8_build_rag_index.py --query "return policy"
 
 # Quick dev run (small sample)
 python scripts/stage4_finetune_intent.py --max-samples 200 --epochs 1
+
+# Phase 3 — Start AI microservice
+cd services/ai-service
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+
+# Or with Docker (from project root)
+docker compose up --build ai-service
+```
+
+API docs: http://localhost:8000/docs
+
+**Example requests:**
+
+```bash
+curl -X POST http://localhost:8000/analyze -H "Content-Type: application/json" -d "{\"text\": \"My order has not arrived. Terrible service!\"}"
+
+curl -X POST http://localhost:8000/rag/search -H "Content-Type: application/json" -d "{\"query\": \"return policy\"}"
+
+curl -X POST http://localhost:8000/generate/response -H "Content-Type: application/json" -d "{\"text\": \"Where is my order?\"}"
 ```
 
 See [docs/PROGRESS.md](docs/PROGRESS.md) for current status and next steps.

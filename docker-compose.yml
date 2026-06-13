@@ -1,0 +1,12 @@
+services:
+  ai-service:
+    build:
+      context: .
+      dockerfile: services/ai-service/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data/knowledge:/app/data/knowledge
+    environment:
+      - PYTHONUNBUFFERED=1
